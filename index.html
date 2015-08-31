@@ -1,0 +1,165 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <title></title>
+
+
+  <link href='http://fonts.googleapis.com/css?family=Philosopher:700' rel='stylesheet' type='text/css'>
+
+
+<style type="text/css">
+
+body {
+	font-family: 'Philosopher', sans-serif;
+	width: 100%;
+	height: 500px;
+	background-color: #e2e2e2;
+}
+
+header {
+	margin:auto;
+	text-transform: uppercase;
+	text-align: center;
+	padding-top: 5em;
+	font-size: 2em;
+	}
+
+.wrapper {
+	width: 75%;
+	margin: auto;
+	padding-top: 4em;
+	position: relative;
+	text-align: center;
+
+}
+input {
+	padding: 5px 10px;
+	border:5px groove;
+	border-color: #e5e5e5;
+}
+
+button {
+	padding:10px 10px;
+	border-radius: 5px;
+	border-color: #e3e3e3;
+	background-color: blue;
+	color: #fff;
+	font-size: 12px;
+}
+
+#eng{
+	padding-top: 10px;
+	position: relative;
+	text-align: center;
+	font-size: 2em;
+}		
+	
+</style>
+
+</head>
+
+
+<body>
+
+<header>Enter a number value between 0-1000... <br> BEHOLD!</header>
+<div class="wrapper">
+	<input id="userInput" value="" onKeyPress="handleKeyPress()">
+	<button onClick="numConvert()" >submit</button>
+</div>
+	<div id='eng'></div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+var ones = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+var teens = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+var tens = ['twenty', 'thirty', 'fourty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninty'];
+var hundreds = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+var trans;
+
+
+	function numConvert() {	 
+
+
+		var userInput = document.getElementById('userInput').value;
+
+
+		if (userInput < 10) {
+			for (i = 0; i < ones.length; i++) {
+				if (userInput == i) {
+					var eng = (ones[i]);
+				}
+			} 
+
+		}	
+		else if (userInput < 20){
+			for (i = 10; i < 20; i++) {
+				if (userInput == i) {
+					var eng = (teens[i - 10]);
+				} 
+			}
+		}
+		else if (userInput < 100) {
+			for ( i = 20; i < 100; i++ ) {
+				if (userInput == i) {
+					var first = userInput.charAt(0);
+					var second = userInput.charAt(1);
+					if ( second == 0) {
+						var eng = (tens[first - 2]);
+					} else {
+					var eng = (tens[first - 2] + " " + ones[second]);
+					}
+				}
+			}
+		}
+		else if (userInput < 1000) {
+			for ( i = 20; i < 1000; i++ ) {
+				if (userInput == i) {	
+					var first = userInput.charAt(0);
+					var second = userInput.charAt(1);
+					var third  = userInput.charAt(2); 
+					if (second == 0 && third == 0) {
+						var eng = (ones[first] + " " + "hundred");
+					} else if (second == 0) { 
+						var eng = (ones[first] + ' ' + 'hundred and' + ' ' + ones[third]);
+					} else if (third == 0) {
+						var eng = (ones[first] + ' ' + 'hundred and' + ' ' + tens[second - 2]);
+					} else if ( second < 20 && second > 12) {
+						var eng = (ones[first] + 'hundred' + teens[second + 1] + ' ' + ones[third]);
+					} else {
+						var eng = (ones[first] + ' ' + 'hundred and ' + tens[second -2] + ' ' + ones[third]);
+
+					}
+				}
+			}
+		}
+	
+		
+		document.getElementById('eng').innerHTML = eng;
+}
+
+
+
+	function handleKeyPress() { 
+		if (event.keyCode === 13) {
+			numConvert();
+		}
+	}
+
+ 
+
+</script>
+
+
+</body>
+</html>
+
+
